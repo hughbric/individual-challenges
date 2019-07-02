@@ -7,20 +7,28 @@ describe Account do
     allow(subject).to receive(:current_date).and_return('01/08/2019')
   end
 
-  it 'has a balance' do
+  it '#balance' do
     expect(subject.balance).to eq(0)
   end
 
-  it 'deposits an amount' do
+  it '#deposit' do
     subject.deposit(2000)
     expect(subject.balance).to eq(2000)
   end
 
-  it 'withdraws an amount' do
+  it '#withdraw' do
     subject.deposit(1000)
     subject.withdraw(500)
     expect(subject.balance).to eq(500)
   end
+
+  it 'depositing 0 raises an error' do
+    expect { subject.deposit(0) }.to raise_error(ArgumentError, 'Invalid amount')
+  end
+
+  it 'withdrawing -5 raises an error' do
+    expect { subject.withdraw(-5) }.to raise_error(ArgumentError, 'Invalid amount')
+  end 
 
   it 'prints a statement with dates' do
     subject.deposit(1000)
