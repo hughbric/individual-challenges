@@ -1,5 +1,17 @@
 # Bank Tech Test
 
+## How to run
+
+Clone the repository and navigate to the project root.
+- Run `irb -r './lib/account.rb'`
+```
+account = Account.new
+account.deposit(1000)
+account.deposit(2000)
+account.withdraw(500)
+account.print_statement
+```
+
 ## Specification
 
 ### Requirements
