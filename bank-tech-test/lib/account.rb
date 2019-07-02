@@ -1,3 +1,4 @@
+# This bank account keeps track of transations
 class Account
   attr_reader :balance
 
@@ -8,24 +9,37 @@ class Account
 
   def deposit(amount)
     @balance += amount
-    @account_history << [date: get_time, credit: amount, debit: nil, balance: @balance]
+    @account_history << {
+      balance: @balance,
+      credit: amount,
+      date: current_date,
+      debit: nil
+    }
   end
 
   def withdraw(amount)
     @balance -= amount
-    @account_history << [date: get_time, credit: nil, debit: amount, balance: @balance]
+    @account_history << {
+      balance: @balance,
+      credit: nil,
+      date: current_date,
+      debit: amount
+    }
   end
 
   def print_statement
-    puts "date || credit || debit || balance"
-    @account_history.reverse.each { |transaction|
-      puts "#{transaction[0][:date]} || #{transaction[0][:credit]} || #{transaction[0][:debit]} || #{transaction[0][:balance]}"
-    }
+    puts 'date || credit || debit || balance'
+    @account_history.reverse.each do |transaction|
+      puts "#{transaction[:date]} || "\
+           "#{transaction[:credit]} || "\
+           "#{transaction[:debit]} || "\
+           "#{transaction[:balance]}"
+    end
   end
 
   private
 
-  def get_time
-    Time.now.strftime("%d-%m-%Y")
+  def current_date
+    Time.now.strftime('%d-%m-%Y')
   end
 end
